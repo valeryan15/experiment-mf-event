@@ -54,7 +54,6 @@ export const useMicrofrontendRoutes = (): React.ReactElement[] => {
         element={
           <Suspense fallback={<div>Загрузка МФ {mf.name}...</div>}>
             <LazyMicrofrontendComponent />
-            {mf.name}
           </Suspense>
         }
       />

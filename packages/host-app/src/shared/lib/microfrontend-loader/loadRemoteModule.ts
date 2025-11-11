@@ -32,14 +32,19 @@ export const loadRemoteModule = async (
     const remoteEntryModule = await import(/* @vite-ignore */ remoteEntryUrl);
     console.log('remoteEntryModule', remoteEntryModule);
     // Проверяем, есть ли у нас методы init и get в импортированном модуле (dev-режим Vite)
-    if (typeof remoteEntryModule.init === 'function' && typeof remoteEntryModule.get === 'function') {
+    if (
+      typeof remoteEntryModule.init === 'function' &&
+      typeof remoteEntryModule.get === 'function'
+    ) {
       console.log('Обнаружен dev-режим Vite для remoteEntry.');
 
       // Шаг 2 (dev): Инициализация общего scope
       if (!window?.__webpack_share_scopes__?.default) {
-        console.warn(`window.__webpack_share_scopes__.default не инициализирован. Попробуем инициализировать.`);
+        console.warn(
+          `window.__webpack_share_scopes__.default не инициализирован. Попробуем инициализировать.`
+        );
         window['__webpack_share_scopes__'] = {
-          default: {}
+          default: {},
         };
       }
 
@@ -58,19 +63,25 @@ export const loadRemoteModule = async (
     } else {
       // Если методов нет, значит, это не dev-режим Vite или что-то пошло не так
       // Попробуем найти контейнер в window (для сборки/продакшена)
-      console.log(`Не найдены init/get в remoteEntry (dev). Попытка поиска в window (для сборки)...`);
+      console.log(
+        `Не найдены init/get в remoteEntry (dev). Попытка поиска в window (для сборки)...`
+      );
       const container = window[remoteName] as RemoteContainer;
       if (!container) {
-        throw new Error(`Контейнер ${remoteName} не найден в window после загрузки ${remoteEntryUrl}.`);
+        throw new Error(
+          `Контейнер ${remoteName} не найден в window после загрузки ${remoteEntryUrl}.`
+        );
       }
 
       console.log(`Найден контейнер ${remoteName} в window (build).`);
 
       // Шаг 2 (build): Инициализация общего scope (обычно 'default')
       if (!window.__webpack_share_scopes__.default) {
-        console.warn(`window.__webpack_share_scopes__.default не инициализирован. Попробуем инициализировать.`);
+        console.warn(
+          `window.__webpack_share_scopes__.default не инициализирован. Попробуем инициализировать.`
+        );
         window['__webpack_share_scopes__'] = {
-          default: {}
+          default: {},
         };
       }
 
@@ -88,7 +99,10 @@ export const loadRemoteModule = async (
       return Module;
     }
   } catch (error) {
-    console.error(`Ошибка загрузки удаленного модуля ${exposedModule} из ${remoteName} (${remoteEntryUrl}):`, error);
+    console.error(
+      `Ошибка загрузки удаленного модуля ${exposedModule} из ${remoteName} (${remoteEntryUrl}):`,
+      error
+    );
     throw error; // Пробрасываем ошибку дальше, чтобы обработать в месте использования (например, в lazy)
   }
 };

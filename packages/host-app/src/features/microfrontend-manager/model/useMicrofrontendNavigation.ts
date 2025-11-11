@@ -6,8 +6,15 @@ interface NavigationLink {
   label: string;
 }
 
-export const useMicrofrontendNavigation = (): { staticLinks: NavigationLink[]; dynamicLinks: NavigationLink[] } => {
-  const { data: microfrontends = [], isLoading, isError } = useQuery({
+export const useMicrofrontendNavigation = (): {
+  staticLinks: NavigationLink[];
+  dynamicLinks: NavigationLink[];
+} => {
+  const {
+    data: microfrontends = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['microfrontends'],
     queryFn: fetchMicrofrontends,
     // staleTime: 5000, // Пример настройки кэширования
@@ -20,7 +27,7 @@ export const useMicrofrontendNavigation = (): { staticLinks: NavigationLink[]; d
   ];
 
   // Динамические ссылки из МФ
-  const dynamicLinks: NavigationLink[] = microfrontends.map(mf => ({
+  const dynamicLinks: NavigationLink[] = microfrontends.map((mf) => ({
     to: mf.route, // Используем маршрут из конфигурации МФ
     label: mf.name, // Используем имя МФ
   }));

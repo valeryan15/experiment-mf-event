@@ -3,34 +3,41 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-    "postinstall": "pnpm build:all", 
+  "scripts": {
+    "postinstall": "pnpm build:all",
     "clean": "rm -rf node_modules packages/*/node_modules packages/*/dist",
-
-    "build": "pnpm -r --filter \"./packages/*\" run build", 
-    "build:all": "pnpm build", 
-    "build:event-bus": "pnpm --filter @mf-system/event-bus run build", 
-    "build:host-app": "pnpm --filter host-app run build", 
-    "build:shop-mf": "pnpm --filter shop-mf run build", 
-    "build:dashboard-mf": "pnpm --filter dashboard-mf run build", 
-    "build:event-bus-monitor-mf": "pnpm --filter event-bus-monitor-mf run build", 
-
-    "test": "pnpm -r --filter \"./packages/*\" run test", 
+    "build": "pnpm -r --filter \"./packages/*\" run build",
+    "build:all": "pnpm build",
+    "build:event-bus": "pnpm --filter @mf-system/event-bus run build",
+    "build:host-app": "pnpm --filter host-app run build",
+    "build:shop-mf": "pnpm --filter shop-mf run build",
+    "build:dashboard-mf": "pnpm --filter dashboard-mf run build",
+    "build:event-bus-monitor-mf": "pnpm --filter event-bus-monitor-mf run build",
+    "test": "pnpm -r --filter \"./packages/*\" run test",
     "test:unit": "pnpm test",
     "test:event-bus": "pnpm --filter @mf-system/event-bus run test",
     "test:host-app": "pnpm --filter host-app run test",
-    
-    "lint": "pnpm -r --filter \"./packages/*\" run lint", 
-    "lint:fix": "pnpm -r --filter \"./packages/*\" run lint:fix", 
-    "format": "prettier --write .", 
-    "format:check": "prettier --check .", 
-
-    "docker:build": "docker-compose build", 
-    "docker:up": "docker-compose up", 
-    "docker:up:build": "docker-compose up --build", 
-    "docker:down": "docker-compose down", 
-
-    "type-check": "pnpm -r --filter \"./packages/*\" run type-check" 
+    "lint": "pnpm -r --filter \"./packages/*\" run lint",
+    "lint:fix": "pnpm -r --filter \"./packages/*\" run lint:fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:up:build": "docker-compose up --build",
+    "docker:down": "docker-compose down",
+    "prepare": "husky install",
+    "type-check": "pnpm -r --filter \"./packages/*\" run type-check"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx,json,md}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [],
   "author": "",

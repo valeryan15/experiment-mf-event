@@ -11,14 +11,15 @@
 Этот шаг выполняется разработчиком МФ.
 
 1.  **Создать структуру пакета МФ:**
-    *   В директории `packages/microfrontends/` создать новую папку, например, `my-new-mf`.
-    *   Внутри `my-new-mf` создать стандартную структуру FSD: `app/`, `pages/`, `widgets/`, `features/`, `entities/`, `shared/`.
+    - В директории `packages/microfrontends/` создать новую папку, например, `my-new-mf`.
+    - Внутри `my-new-mf` создать стандартную структуру FSD: `app/`, `pages/`, `widgets/`, `features/`, `entities/`, `shared/`.
 
 2.  **Инициализировать `package.json`:**
-    *   В `packages/microfrontends/my-new-mf/package.json` определить имя, версию, зависимости (`react`, `react-dom`, `@mf-system/event-bus`), и скрипты сборки (`vite build`, `vite dev`).
-    *   Убедиться, что `@mf-system/event-bus` указана как зависимость, если МФ будет использовать EventBus.
+    - В `packages/microfrontends/my-new-mf/package.json` определить имя, версию, зависимости (`react`, `react-dom`, `@mf-system/event-bus`), и скрипты сборки (`vite build`, `vite dev`).
+    - Убедиться, что `@mf-system/event-bus` указана как зависимость, если МФ будет использовать EventBus.
 
     **Пример `package.json`:**
+
     ```json
     {
       "name": "my-new-mf",
@@ -48,13 +49,14 @@
     ```
 
 3.  **Настроить `vite.config.ts`:**
-    *   В `packages/microfrontends/my-new-mf/vite.config.ts` настроить Module Federation:
-        *   Указать `name` (должно совпадать с именем сервиса в `docker-compose.yml`, если используется динамическая загрузка).
-        *   Указать `filename` для `remoteEntry.js`.
-        *   Экспортировать компонент (например, `./src/bootstrap.tsx`).
-        *   Указать `shared` зависимости (включая `@mf-system/event-bus`, `react`, `react-dom`, и т.д.).
+    - В `packages/microfrontends/my-new-mf/vite.config.ts` настроить Module Federation:
+      - Указать `name` (должно совпадать с именем сервиса в `docker-compose.yml`, если используется динамическая загрузка).
+      - Указать `filename` для `remoteEntry.js`.
+      - Экспортировать компонент (например, `./src/bootstrap.tsx`).
+      - Указать `shared` зависимости (включая `@mf-system/event-bus`, `react`, `react-dom`, и т.д.).
 
     **Пример `vite.config.ts`:**
+
     ```ts
     import { defineConfig } from 'vite';
     import react from '@vitejs/plugin-react';
@@ -91,10 +93,11 @@
     ```
 
 4.  **Создать точку входа (`bootstrap.tsx`):**
-    *   В `packages/microfrontends/my-new-mf/src/bootstrap.tsx` создать основной React-компонент МФ.
-    *   *Если МФ использует EventBus*, получить `EventBus` экземпляр из `window` и подписаться/отправить события.
+    - В `packages/microfrontends/my-new-mf/src/bootstrap.tsx` создать основной React-компонент МФ.
+    - _Если МФ использует EventBus_, получить `EventBus` экземпляр из `window` и подписаться/отправить события.
 
     **Пример `bootstrap.tsx`:**
+
     ```tsx
     import React, { useEffect } from 'react';
     import { EventBus } from '@mf-system/event-bus'; // Импортируем тип
@@ -112,11 +115,11 @@
 
       useEffect(() => {
         if (!eventBus) {
-            console.error('EventBus не найден в window.__MICROFRONTEND_EVENT_BUS__ в my-new-mf');
-            return;
+          console.error('EventBus не найден в window.__MICROFRONTEND_EVENT_BUS__ в my-new-mf');
+          return;
         }
 
-        const handleSomeEvent = ( any) => {
+        const handleSomeEvent = (any) => {
           console.log('MyNewMF получил событие:', data);
           // Обработка данных
         };
@@ -136,7 +139,11 @@
 
       const triggerEvent = () => {
         if (eventBus) {
-            eventBus.emit('userAction', { action: 'clickedButtonInNewMF', details: '...' }, 'my-new-mf');
+          eventBus.emit(
+            'userAction',
+            { action: 'clickedButtonInNewMF', details: '...' },
+            'my-new-mf'
+          );
         }
       };
 
@@ -153,9 +160,10 @@
     ```
 
 5.  **Создать `tsconfig.json`:**
-    *   Настроить `tsconfig.json` в `my-new-mf`, указав `moduleResolution: "bundler"`, `target`, `jsx` и т.д. Убедиться, что `baseUrl` и `paths` (если используются внутри МФ) корректны. Убедиться, что `@mf-system/event-bus` разрешается правильно (через `node_modules`).
+    - Настроить `tsconfig.json` в `my-new-mf`, указав `moduleResolution: "bundler"`, `target`, `jsx` и т.д. Убедиться, что `baseUrl` и `paths` (если используются внутри МФ) корректны. Убедиться, что `@mf-system/event-bus` разрешается правильно (через `node_modules`).
 
     **Пример `tsconfig.json`:**
+
     ```json
     {
       "compilerOptions": {
@@ -180,14 +188,15 @@
         }
       },
       "include": ["src"],
-      "references": [{"path": "./tsconfig.node.json"}]
+      "references": [{ "path": "./tsconfig.node.json" }]
     }
     ```
 
 6.  **Создать `Dockerfile`:**
-    *   В `packages/microfrontends/my-new-mf/Dockerfile` определить multi-stage сборку, аналогично другим МФ (`shop-mf`, `dashboard-mf`). Убедиться, что `vite build` запускается корректно, и `dist` копируется в `nginx` контейнер.
+    - В `packages/microfrontends/my-new-mf/Dockerfile` определить multi-stage сборку, аналогично другим МФ (`shop-mf`, `dashboard-mf`). Убедиться, что `vite build` запускается корректно, и `dist` копируется в `nginx` контейнер.
 
     **Пример `Dockerfile`:**
+
     ```Dockerfile
     FROM node:20-alpine AS builder
 
@@ -220,9 +229,10 @@
     ```
 
 7.  **Обновить `docker-compose.yml`:**
-    *   Добавить новый сервис для `my-new-mf`.
+    - Добавить новый сервис для `my-new-mf`.
 
     **Пример обновления `docker-compose.yml`:**
+
     ```yaml
     # ... (остальные сервисы)
     my-new-mf:
@@ -230,43 +240,43 @@
         context: .
         dockerfile: ./packages/microfrontends/my-new-mf/Dockerfile
       ports:
-        - "5004:80" # Мапим на порт 5004 хоста
+        - '5004:80' # Мапим на порт 5004 хоста
       restart: unless-stopped
     # ... (остальные сервисы)
     ```
 
 8.  **Собрать и запустить МФ:**
-    *   Убедиться, что МФ можно собрать и запустить локально или в Docker.
+    - Убедиться, что МФ можно собрать и запустить локально или в Docker.
 
 #### **2. Регистрация МФ в `host-server` и `host-app`**
 
 Этот шаг регистрирует МФ в системе, чтобы `host-app` знал о нём.
 
 1.  **Добавить конфигурацию МФ в `host-server`:**
-    *   Никаких изменений в *коде* `host-server` не требуется, так как `host-server` предоставляет API для *управления* конфигурациями МФ.
+    - Никаких изменений в _коде_ `host-server` не требуется, так как `host-server` предоставляет API для _управления_ конфигурациями МФ.
 
 2.  **Добавить МФ через админ-панель `host-app`:**
-    *   Запустить `host-app` (и `host-server`).
-    *   Перейти в админ-панель (`http://localhost:3000/admin`).
-    *   Заполнить форму:
-        *   **Имя:** `MyNewMF` (или любое уникальное имя).
-        *   **Маршрут:** `/my-new-mf` (путь, по которому будет доступен МФ).
-        *   **URL:** `http://my-new-mf/remoteEntry.js` (если запущен через `docker-compose`, или `http://localhost:5004/remoteEntry.js` для локальной разработки).
-    *   Нажать "Добавить".
+    - Запустить `host-app` (и `host-server`).
+    - Перейти в админ-панель (`http://localhost:3000/admin`).
+    - Заполнить форму:
+      - **Имя:** `MyNewMF` (или любое уникальное имя).
+      - **Маршрут:** `/my-new-mf` (путь, по которому будет доступен МФ).
+      - **URL:** `http://my-new-mf/remoteEntry.js` (если запущен через `docker-compose`, или `http://localhost:5004/remoteEntry.js` для локальной разработки).
+    - Нажать "Добавить".
 
 3.  **Проверить интеграцию:**
-    *   В `host-app` должна появиться ссылка "MyNewMF" в навигации.
-    *   При переходе по маршруту `/my-new-mf` `host-app` должен динамически загрузить `remoteEntry.js` с `my-new-mf`, получить компонент `App` и отобразить его в `ContentArea`.
-    *   Проверить работу EventBus между `host-app` и `my-new-mf` (если реализованы соответствующие подписки/эмиты).
+    - В `host-app` должна появиться ссылка "MyNewMF" в навигации.
+    - При переходе по маршруту `/my-new-mf` `host-app` должен динамически загрузить `remoteEntry.js` с `my-new-mf`, получить компонент `App` и отобразить его в `ContentArea`.
+    - Проверить работу EventBus между `host-app` и `my-new-mf` (если реализованы соответствующие подписки/эмиты).
 
 ---
 
 ### **Ключевые моменты:**
 
-*   **Независимость:** МФ разрабатывается и собирается независимо.
-*   **Module Federation:** Используется для динамической загрузки.
-*   **`host-server` API:** Централизованное управление конфигурациями МФ.
-*   **`host-app` динамическая маршрутизация:** `useMicrofrontendRoutes`, `loadRemoteModule`.
-*   **`EventBus`:** Централизованная шина событий, доступная через `window.__MICROFRONTEND_EVENT_BUS__`.
-*   **Docker & `docker-compose`:** Управление жизненным циклом сервисов.
-*   **`pnpm workspace`:** Управление зависимостями и связями между пакетами.
+- **Независимость:** МФ разрабатывается и собирается независимо.
+- **Module Federation:** Используется для динамической загрузки.
+- **`host-server` API:** Централизованное управление конфигурациями МФ.
+- **`host-app` динамическая маршрутизация:** `useMicrofrontendRoutes`, `loadRemoteModule`.
+- **`EventBus`:** Централизованная шина событий, доступная через `window.__MICROFRONTEND_EVENT_BUS__`.
+- **Docker & `docker-compose`:** Управление жизненным циклом сервисов.
+- **`pnpm workspace`:** Управление зависимостями и связями между пакетами.

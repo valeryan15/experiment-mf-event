@@ -34,8 +34,7 @@ export const fetchMicrofrontends = async (): Promise<MicrofrontendConfig[]> => {
     console.error('Данные API не соответствуют ожидаемой схеме:', parsedData.error);
     throw new Error('Данные API имеют неверный формат');
   }
-  console.log(parsedData.data);
-  const microfrontends = parsedData.data
+  const microfrontends = parsedData.data;
   registerRemotes(
     microfrontends.map((mf) => ({
       name: mf.name,
@@ -47,7 +46,9 @@ export const fetchMicrofrontends = async (): Promise<MicrofrontendConfig[]> => {
   return microfrontends;
 };
 
-export const addMicrofrontend = async (data: NewMicrofrontendData): Promise<MicrofrontendConfig> => {
+export const addMicrofrontend = async (
+  data: NewMicrofrontendData
+): Promise<MicrofrontendConfig> => {
   const response = await fetch(`${API_BASE_URL}/microfrontends`, {
     method: 'POST',
     headers: {
@@ -73,6 +74,7 @@ export const addMicrofrontend = async (data: NewMicrofrontendData): Promise<Micr
 };
 
 export const deleteMicrofrontend = async (name: string): Promise<void> => {
+  console.log('delete name', name);
   const response = await fetch(`${API_BASE_URL}/microfrontends/${name}`, {
     method: 'DELETE',
   });

@@ -29,7 +29,7 @@ await server.register(cors, {
   ],
   credentials: true, // Если вам нужно передавать cookies или авторизационные заголовки
   // allowedHeaders: ['Content-Type', 'Authorization'], // Можно явно указать разрешенные заголовки
-  // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Можно явно указать разрешенные методы
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Можно явно указать разрешенные методы
 });
 // --- /Регистрация CORS ---
 
@@ -49,9 +49,12 @@ if (!fs.existsSync(DB_PATH)) {
 
 // Схема для тела запроса POST /microfrontends
 const CreateMicrofrontendSchema = z.object({
-  name: z.string().min(1, { message: "Имя не может быть пустым" }),
-  route: z.string().min(1, { message: "Маршрут не может быть пустым" }).regex(/^\/.*$/, { message: "Маршрут должен начинаться с '/'" }),
-  url: z.string().url({ message: "URL должен быть валидным" }),
+  name: z.string().min(1, { message: 'Имя не может быть пустым' }),
+  route: z
+    .string()
+    .min(1, { message: 'Маршрут не может быть пустым' })
+    .regex(/^\/.*$/, { message: "Маршрут должен начинаться с '/'" }),
+  url: z.string().url({ message: 'URL должен быть валидным' }),
 });
 
 // Тип для данных из тела запроса
@@ -84,10 +87,10 @@ server.post<{ Body: CreateMicrofrontendInput }>('/microfrontends', async (reques
 
     if (!parsedData.success) {
       // Формируем детали ошибки валидации
-      const errorDetails = parsedData.error.issues.map(issue => ({
+      const errorDetails = parsedData.error.issues.map((issue) => ({
         field: issue.path.join('.'), // Путь к полю, например, "name" или "address.street"
-        message: issue.message,      // Сообщение об ошибке
-        code: issue.code,            // Код ошибки Zod (например, "too_small", "invalid_string")
+        message: issue.message, // Сообщение об ошибке
+        code: issue.code, // Код ошибки Zod (например, "too_small", "invalid_string")
         // Значение, которое вызвало ошибку (опционально)
         // input: issue.input,
       }));
@@ -103,7 +106,9 @@ server.post<{ Body: CreateMicrofrontendInput }>('/microfrontends', async (reques
 
     // Проверка на дубликат по имени
     if (microfrontends.some((mf) => mf.name === newMicrofrontend.name)) {
-      return reply.status(409).send({ error: 'Conflict', message: 'Microfrontend with this name already exists' });
+      return reply
+        .status(409)
+        .send({ error: 'Conflict', message: 'Microfrontend with this name already exists' });
     }
 
     // Добавляем новый МФ
@@ -127,7 +132,9 @@ server.delete<{ Params: { name: string } }>('/microfrontends/:name', async (requ
 
     // Валидация параметра (Fastify может автоматически валидировать схему пути, но можно и вручную)
     if (!name || typeof name !== 'string') {
-      return reply.status(400).send({ error: 'Bad Request', message: 'Name parameter is required and must be a string' });
+      return reply
+        .status(400)
+        .send({ error: 'Bad Request', message: 'Name parameter is required and must be a string' });
     }
 
     // Читаем текущий список МФ

@@ -53,45 +53,46 @@ const FloatingMonitor: React.FC = () => {
       </button>
 
       {/* Портал для рендеринга MonitorPage */}
-      {isOpen && createPortal(
-        <div
-          ref={containerRef}
-          style={{
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 10001, // Выше кнопки
-            width: '90vw',
-            height: '80vh',
-            maxWidth: '1200px',
-            maxHeight: '800px',
-            backgroundColor: 'white',
-            border: '2px solid #ccc',
-            borderRadius: '8px',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-            padding: '20px',
-            overflow: 'auto',
-          }}
-        >
-          <MonitorPage />
-          <button
-            onClick={toggleMonitor}
+      {isOpen &&
+        createPortal(
+          <div
+            ref={containerRef}
             style={{
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
-              background: 'none',
-              border: 'none',
-              fontSize: '18px',
-              cursor: 'pointer',
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 10001, // Выше кнопки
+              width: '90vw',
+              height: '80vh',
+              maxWidth: '1200px',
+              maxHeight: '800px',
+              backgroundColor: 'white',
+              border: '2px solid #ccc',
+              borderRadius: '8px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+              padding: '20px',
+              overflow: 'auto',
             }}
           >
-            X
-          </button>
-        </div>,
-        container
-      )}
+            <MonitorPage />
+            <button
+              onClick={toggleMonitor}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                background: 'none',
+                border: 'none',
+                fontSize: '18px',
+                cursor: 'pointer',
+              }}
+            >
+              X
+            </button>
+          </div>,
+          container
+        )}
     </>
   );
 };

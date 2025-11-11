@@ -18,7 +18,7 @@ const MicrofrontendForm: React.FC = () => {
     onError: (error: Error) => {
       console.error('Ошибка добавления МФ:', error);
       alert(`Ошибка: ${error.message}`);
-    }
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,7 +28,7 @@ const MicrofrontendForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (

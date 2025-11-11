@@ -5,7 +5,7 @@ services:
       context: . # Путь к директории с Dockerfile
       dockerfile: ./packages/host-server/Dockerfile
     ports:
-      - "3001:3001" # Порт внутри контейнера:порт на хосте
+      - '3001:3001' # Порт внутри контейнера:порт на хосте
     volumes:
       # Монтируем файл базы данных, чтобы изменения сохранялись между перезапусками контейнера
       - ./packages/host-server/db.json:/app/db.json
@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: ./packages/host-app/Dockerfile
     ports:
-      - "3000:80" # Nginx в контейнере слушает 80, мапим на 3000 хоста
+      - '3000:80' # Nginx в контейнере слушает 80, мапим на 3000 хоста
     depends_on:
       - host-server # Убедимся, что host-server запущен до host-app
     restart: unless-stopped
@@ -31,7 +31,7 @@ services:
       context: .
       dockerfile: ./packages/microfrontends/shop-mf/Dockerfile
     ports:
-      - "5001:80" # Мапим на 5001 хоста
+      - '5001:80' # Мапим на 5001 хоста
     restart: unless-stopped
 
   # Сервис для dashboard-mf
@@ -40,7 +40,7 @@ services:
       context: .
       dockerfile: ./packages/microfrontends/dashboard-mf/Dockerfile
     ports:
-      - "5002:80" # Мапим на 5002 хоста
+      - '5002:80' # Мапим на 5002 хоста
     restart: unless-stopped
 
   # Сервис для event-bus-monitor-mf
@@ -49,9 +49,8 @@ services:
       context: .
       dockerfile: ./packages/microfrontends/event-bus-monitor-mf/Dockerfile
     ports:
-      - "5003:80" # Мапим на 5003 хоста
+      - '5003:80' # Мапим на 5003 хоста
     restart: unless-stopped
-
 # networks: # Опционально: определение кастомной сети
 #   default:
 #     driver: bridge

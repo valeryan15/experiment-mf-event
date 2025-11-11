@@ -8,7 +8,9 @@ const MainPage: React.FC = () => {
       <p>Это главная страница.</p>
       <nav>
         <ul>
-          <li><Link to="/admin">Админ панель</Link></li>
+          <li>
+            <Link to="/admin">Админ панель</Link>
+          </li>
           {/* Ссылки на динамические МФ будут добавлены позже */}
         </ul>
       </nav>

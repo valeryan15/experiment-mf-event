@@ -1,9 +1,7 @@
-
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
-import { dependencies } from './package.json'
+import { dependencies } from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +9,7 @@ export default defineConfig({
     federation({
       name: 'host_app', // Имя хост-приложения
       remotes: {
-        dummy: "dummy.js",  // Dummy remote для обхода ошибок на runtime (обязательно для динамической загрузки)
+        dummy: 'dummy.js', // Dummy remote для обхода ошибок на runtime (обязательно для динамической загрузки)
       },
       // manifest: true,
       shared: {
@@ -51,7 +49,7 @@ export default defineConfig({
     port: 3000, // Порт хост-приложения
     strictPort: true,
     fs: {
-      allow: ['.'],  // Рекомендуется добавить для разрешения доступа к файлам в dev-режиме
+      allow: ['.'], // Рекомендуется добавить для разрешения доступа к файлам в dev-режиме
     },
   },
   build: {

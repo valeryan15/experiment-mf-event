@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { federation } from '@module-federation/vite';
-import { dependencies } from './package.json'
+import { dependencies } from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -51,10 +51,10 @@ export default defineConfig({
   server: {
     port: 5001, // Порт для shop-mf
     strictPort: true,
-    fs: { allow: ['.'] }
+    fs: { allow: ['.'] },
   },
   preview: {
-    port: 5001 // Customize the preview server port
+    port: 5001, // Customize the preview server port
   },
   build: {
     target: 'esnext',

@@ -7,13 +7,13 @@ const ManualEventSender: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setEventData(prev => ({ ...prev, [name]: value }));
+    setEventData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     if (!eventBus) {
       console.error('eventBus не инициализирован');
-      return
+      return;
     }
     e.preventDefault();
     try {

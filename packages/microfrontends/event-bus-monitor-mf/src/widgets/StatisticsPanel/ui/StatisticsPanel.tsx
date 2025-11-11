@@ -36,7 +36,6 @@ const StatisticsPanel: React.FC = () => {
       eventCountLastSecond = currentHistory.filter(
         (entry: any) => entry.timestamp > lastUpdateTimestamp && entry.type === 'EMIT'
       ).length;
-
     }, 100); // Часто обновляем для плавности
 
     return () => clearInterval(intervalId);

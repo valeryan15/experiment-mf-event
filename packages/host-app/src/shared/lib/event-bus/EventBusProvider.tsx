@@ -8,12 +8,11 @@ interface EventBusProviderProps {
   eventBusInstance: EventBus; // Принимаем экземпляр как проп
 }
 
-export const EventBusProvider: React.FC<EventBusProviderProps> = ({ children, eventBusInstance }) => {
-  return (
-    <EventBusContext.Provider value={eventBusInstance}>
-      {children}
-    </EventBusContext.Provider>
-  );
+export const EventBusProvider: React.FC<EventBusProviderProps> = ({
+  children,
+  eventBusInstance,
+}) => {
+  return <EventBusContext.Provider value={eventBusInstance}>{children}</EventBusContext.Provider>;
 };
 
 export const useEventBus = (): EventBus => {

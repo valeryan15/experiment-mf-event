@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'; // Используем createRoo
 import App from './app/App'; // Импортируем основной компонент приложения
 // Импортируем глобальные стили, если они есть (опционально)
 // import './index.css';
-import { createInstance } from "@module-federation/runtime";
+import { createInstance } from '@module-federation/runtime';
 //
 createInstance({
   name: 'host_app', // Должно совпадать с name в federation
@@ -21,7 +21,9 @@ if (container) {
   // Рендерим компонент App внутри корня
   // App (через AppProviders) уже оборачивает всё приложение в необходимые провайдеры
   root.render(
-    <React.StrictMode> {/* Рекомендуется для разработки */}
+    <React.StrictMode>
+      {' '}
+      {/* Рекомендуется для разработки */}
       <App />
     </React.StrictMode>
   );

@@ -1,7 +1,7 @@
 import { LogEntry, EventBusConfig, EventCallback } from './types';
 
 // Тип для хранения подписчиков: { [event: string]: { callback: Function, moduleId: string }[] }
-type SubscribersMap = Map<string, { callback: EventCallback, moduleId: string }[]>;
+type SubscribersMap = Map<string, { callback: EventCallback; moduleId: string }[]>;
 
 export class EventBus {
   private subscribers: SubscribersMap = new Map();
@@ -85,7 +85,7 @@ export class EventBus {
     if (subscribers) {
       // Находим и удаляем конкретный callback для moduleId
       const index = subscribers.findIndex(
-        sub => sub.callback === callback && sub.moduleId === moduleId
+        (sub) => sub.callback === callback && sub.moduleId === moduleId
       );
       if (index !== -1) {
         // Логируем отписку
@@ -110,7 +110,7 @@ export class EventBus {
    */
   getEventHistory(event?: string): LogEntry[] {
     if (event) {
-      return this.eventHistory.filter(entry => entry.event === event);
+      return this.eventHistory.filter((entry) => entry.event === event);
     }
     return [...this.eventHistory]; // Возвращаем копию
   }
@@ -132,12 +132,12 @@ export class EventBus {
   getSubscribers(event?: string): string[] {
     if (event) {
       const subscribers = this.subscribers.get(event);
-      return subscribers ? subscribers.map(sub => sub.moduleId) : [];
+      return subscribers ? subscribers.map((sub) => sub.moduleId) : [];
     }
     // Возвращает уникальные moduleId из всех подписчиков
     const allModuleIds = new Set<string>();
-    this.subscribers.forEach(subList => {
-      subList.forEach(sub => allModuleIds.add(sub.moduleId));
+    this.subscribers.forEach((subList) => {
+      subList.forEach((sub) => allModuleIds.add(sub.moduleId));
     });
     return Array.from(allModuleIds);
   }
@@ -177,7 +177,10 @@ export class EventBus {
     // Выводим в консоль в зависимости от logLevel
     // (В реальных условиях можно отправлять в централизованный логгер)
     if (this.shouldLog()) {
-      console.log(`[${new Date(logEntry.timestamp).toISOString()}] ${type}: ${moduleId} -> ${event}`, data ? data : '');
+      console.log(
+        `[${new Date(logEntry.timestamp).toISOString()}] ${type}: ${moduleId} -> ${event}`,
+        data ? data : ''
+      );
     }
   }
 

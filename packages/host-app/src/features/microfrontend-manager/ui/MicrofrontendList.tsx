@@ -5,7 +5,12 @@ import { fetchMicrofrontends, deleteMicrofrontend } from '../api/microfrontendAp
 const MicrofrontendList: React.FC = () => {
   const queryClient = useQueryClient();
 
-  const { data: microfrontends = [], isLoading, isError, error } = useQuery({
+  const {
+    data: microfrontends = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ['microfrontends'],
     queryFn: fetchMicrofrontends,
   });
@@ -19,7 +24,7 @@ const MicrofrontendList: React.FC = () => {
     onError: (error: Error) => {
       console.error('Ошибка удаления МФ:', error);
       alert(`Ошибка: ${error.message}`);
-    }
+    },
   });
 
   if (isLoading) return <div>Загрузка списка МФ...</div>;
@@ -34,7 +39,10 @@ const MicrofrontendList: React.FC = () => {
   return (
     <ul>
       {microfrontends.map((mf) => (
-        <li key={mf.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <li
+          key={mf.name}
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        >
           <span>
             {mf.name} (маршрут: <code>{mf.route}</code>)
           </span>

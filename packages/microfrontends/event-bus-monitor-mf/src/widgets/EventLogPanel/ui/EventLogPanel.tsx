@@ -35,7 +35,7 @@ const EventLogPanel: React.FC = () => {
   // Фильтруем логи на основе состояния filter
   const filteredLogs = useMemo(() => {
     if (!filter) return allLogs;
-    return allLogs.filter(entry => entry.event.toLowerCase().includes(filter.toLowerCase()));
+    return allLogs.filter((entry) => entry.event.toLowerCase().includes(filter.toLowerCase()));
   }, [allLogs, filter]);
 
   return (
@@ -48,7 +48,9 @@ const EventLogPanel: React.FC = () => {
         onChange={(e) => setFilter(e.target.value)}
         style={{ marginBottom: '10px', padding: '5px', width: '100%' }}
       />
-      <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
+      <div
+        style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}
+      >
         {filteredLogs.length === 0 ? (
           <p>Нет событий для отображения.</p>
         ) : (

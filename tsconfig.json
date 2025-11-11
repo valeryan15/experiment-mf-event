@@ -44,7 +44,7 @@
     // в tsconfig каждого пакета (см. ниже)
     "paths": {
       // Алиасы для пакетов в монорепозитории
-      "@mf-system/event-bus": ["./packages/event-bus/src/index.ts"], // Пример
+      "@mf-system/event-bus": ["./packages/event-bus/src/index.ts"] // Пример
       // "@mf-system/event-bus/*": ["./packages/event-bus/src/*"], // Если нужно для подмодулей
       // "@host-app/*": ["./packages/host-app/src/*"], // Пример алиаса на пакет (не рекомендуется для МФ)
       // "@shop-mf/*": ["./packages/microfrontends/shop-mf/src/*"], // Пример алиаса на пакет (не рекомендуется для МФ)
@@ -52,7 +52,7 @@
       // "@shared/*": ["./packages/host-app/src/shared/*"], // Не использовать в МФ!
       // "@shared/*": ["./packages/microfrontends/shop-mf/src/shared/*"], // Внутри shop-mf
     }
-  },
+  }
   // Указывает, что этот файл - базовый, не для компиляции отдельных файлов
   // "include": [] // или не указывать, если не нужно для корня
 }

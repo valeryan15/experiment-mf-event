@@ -34,7 +34,7 @@ interface AppProvidersProps {
 const eventBus = new EventBus(eventBusConfig);
 
 export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
-    // Создаём экземпляр EventBus
+  // Создаём экземпляр EventBus
 
   // Помещаем его в window *один раз* при инициализации провайдеров
   if (typeof window !== 'undefined' && !window.__MICROFRONTEND_EVENT_BUS__) {
@@ -60,7 +60,9 @@ export const AppProviders: React.FC<AppProvidersProps> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <EventBusProvider eventBusInstance={eventBus}> {/* Оборачиваем в EventBusProvider */}
+        <EventBusProvider eventBusInstance={eventBus}>
+          {' '}
+          {/* Оборачиваем в EventBusProvider */}
           {children}
           <FloatingMonitor />
         </EventBusProvider>

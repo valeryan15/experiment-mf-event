@@ -7,8 +7,8 @@ const DashboardApp: React.FC = () => {
 
   useEffect(() => {
     if (!eventBus) {
-        console.error('EventBus недоступен в DashboardApp');
-        return;
+      console.error('EventBus недоступен в DashboardApp');
+      return;
     }
 
     const handleUserUpdate = (data: any) => {
