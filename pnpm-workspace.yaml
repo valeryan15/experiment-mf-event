@@ -1,0 +1,7 @@
+packages:
+  # Явно перечислим пакеты для лучшего контроля:
+  - 'packages/host-app'
+  - 'packages/host-server'
+  - 'packages/event-bus'
+  # Включим все микрофронтенды
+  - 'packages/microfrontends/*'

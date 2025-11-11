@@ -1,0 +1,35 @@
+{
+  "name": "host-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.19.0",
+  "dependencies": {
+    "@mf-system/event-bus": "workspace:*",
+    "@module-federation/enhanced": "^0.21.3",
+    "@module-federation/runtime": "^0.21.3",
+    "@tanstack/react-query": "^5.90.5",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@types/styled-components": "^5.1.35",
+    "@vitejs/plugin-react": "^5.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5",
+    "styled-components": "^6.1.19",
+    "typescript": "^5.9.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@module-federation/vite": "^1.9.0",
+    "vite": "^7.1.12"
+  }
+}

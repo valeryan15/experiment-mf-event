@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    // Язык ECMAScript целевой версии
+    "target": "ES2020",
+    // Использовать define для полей классов
+    "useDefineForClassFields": true,
+    // Библиотеки типов для DOM, ES2020 и т.д.
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    // Формат модуля
+    "module": "ESNext",
+    // Пропустить проверку типов файлов .d.ts в node_modules
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    // Как резолвить модули (для Vite и pnpm workspace важно)
+    "moduleResolution": "bundler",
+    // Позволить импорт TypeScript файлов с расширением .ts/.tsx
+    "allowImportingTsExtensions": true,
+    // Разрешить импорт JSON файлов
+    "resolveJsonModule": true,
+    // Рассматривать каждый файл как отдельный модуль
+    "isolatedModules": true,
+    // Не выводить JS файлы (Vite сам компилирует)
+    "noEmit": true,
+    // Поддержка JSX
+    "jsx": "react-jsx",
+
+    /* Linting */
+    // Включить строгую проверку типов
+    "strict": true,
+    // Проверить, что неиспользуемые локальные переменные не объявляются
+    "noUnusedLocals": true,
+    // Проверить, что неиспользуемые параметры функций не объявляются
+    "noUnusedParameters": true,
+    // Проверить, что в switch операторах нет fallthrough случаев
+    "noFallthroughCasesInSwitch": true,
+
+    /* FSD Path Mapping (Пример, может отличаться) */
+    // Установка baseUrl для абсолютных импортов
+    // В корне проекта baseUrl обычно "."
+    "baseUrl": ".",
+    // Определение алиасов для абсолютных импортов
+    // Эти алиасы могут использоваться в подпакетах, но требуют настройки
+    // в tsconfig каждого пакета (см. ниже)
+    "paths": {
+      // Алиасы для пакетов в монорепозитории
+      "@mf-system/event-bus": ["./packages/event-bus/src/index.ts"], // Пример
+      // "@mf-system/event-bus/*": ["./packages/event-bus/src/*"], // Если нужно для подмодулей
+      // "@host-app/*": ["./packages/host-app/src/*"], // Пример алиаса на пакет (не рекомендуется для МФ)
+      // "@shop-mf/*": ["./packages/microfrontends/shop-mf/src/*"], // Пример алиаса на пакет (не рекомендуется для МФ)
+      // Общие алиасы для shared слоёв (требует осторожности в МФ)
+      // "@shared/*": ["./packages/host-app/src/shared/*"], // Не использовать в МФ!
+      // "@shared/*": ["./packages/microfrontends/shop-mf/src/shared/*"], // Внутри shop-mf
+    }
+  },
+  // Указывает, что этот файл - базовый, не для компиляции отдельных файлов
+  // "include": [] // или не указывать, если не нужно для корня
+}

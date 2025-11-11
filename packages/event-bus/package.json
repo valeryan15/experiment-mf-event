@@ -1,0 +1,27 @@
+{
+  "name": "@mf-system/event-bus",
+  "version": "1.0.0",
+  "description": "Enhanced EventBus for microfrontend communication",
+  "main": "dist/EventBus.cjs",
+  "module": "dist/EventBus.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.19.0",
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "package.json"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2020", // Уровень ECMAScript
+    "module": "ESNext", // Формат модуля: ESNext (ESM)
+    "moduleResolution": "node", // Как резолвить модули
+    "outDir": "./dist", // Директория для вывода скомпилированного кода
+    "rootDir": "./src", // Корневая директория исходников
+    "strict": true, // Включить все строгие проверки
+    "esModuleInterop": true, // Позволяет использовать default import для модулей CommonJS
+    "skipLibCheck": true, // Пропустить проверку типов в библиотеках
+    "forceConsistentCasingInFileNames": true, // Обязательное соблюдение регистра имён файлов
+    "declaration": true, // Генерировать .d.ts файлы
+    "declarationMap": true, // Генерировать карты деклараций для отладки
+    "sourceMap": true, // Генерировать source map файлы (опционально, полезно для отладки)
+    "removeComments": false, // Не удалять комментарии (опционально)
+    "allowSyntheticDefaultImports": true // Позволяет использовать default import с модулями, не экспортирующими default явно
+  },
+  "include": ["src/**/*"], // Включаем файлы из src
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"] // Исключаем лишнее
+}

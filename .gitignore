@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.idea
+.env
+.vscode
+.DS_Store
+coverage/
+.nyc_output/
+# Для Docker
+.dockerignore
+# Для Fastify
+logs/
+# Для Vite
+.vite/
+# Для TypeScript
+.tsbuildinfo
