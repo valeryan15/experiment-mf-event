@@ -15,7 +15,7 @@
 1.  **Клонируйте репозиторий:**
 
     ```bash
-    git clone <url-вашего-репозитория>
+    git clone https://github.com/valeryan15/experiment-mf-event.git
     cd mf-event-system
     ```
 

@@ -1,19 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { Route } from 'react-router-dom';
 import { fetchMicrofrontends, MicrofrontendConfig } from '../api/microfrontendApi';
-import React, { Suspense } from 'react';
-import { loadRemote } from '@module-federation/runtime';
-
-const useRemote = (_url: string, scope: string, module: string) => {
-  const id = `${scope}/${module}`;
-  console.log(id);
-  return React.lazy(async () => {
-    return loadRemote(id, {
-      from: 'runtime',
-      loadFactory: true,
-    }) as Promise<{ default: any }>;
-  });
-};
+import React from 'react';
+import { MicrofrontendComponent } from '../ui/MicrofrontendComponent.tsx';
+import ErrorBoundary from '../../../shared/lib/error-boundary/ErrorBoundary.tsx';
 
 // Хук для получения динамических маршрутов
 export const useMicrofrontendRoutes = (): React.ReactElement[] => {
@@ -44,18 +34,17 @@ export const useMicrofrontendRoutes = (): React.ReactElement[] => {
   microfrontends.forEach((mf: MicrofrontendConfig) => {
     // Создаем lazy-компонент для загрузки удаленного МФ
 
-    const LazyMicrofrontendComponent = useRemote(mf.url, mf.name, 'App');
-
     // Добавляем маршрут
     routes.push(
       <Route
         key={mf.name}
         path={mf.route} // Используем маршрут из конфига
         element={
-          <Suspense fallback={<div>Загрузка МФ {mf.name}...</div>}>
-            <LazyMicrofrontendComponent />
-          </Suspense>
+          <ErrorBoundary fallback={<h2>Ошибка загрузки МФ {mf.name}</h2>}>
+            <MicrofrontendComponent name={mf.name} />
+          </ErrorBoundary>
         }
+        errorElement={<div>Ошибка загрузки МФ {mf.name}</div>}
       />
     );
   });
