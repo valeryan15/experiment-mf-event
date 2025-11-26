@@ -41,7 +41,7 @@ export const useMicrofrontendRoutes = (): React.ReactElement[] => {
         path={mf.route} // Используем маршрут из конфига
         element={
           <ErrorBoundary fallback={<h2>Ошибка загрузки МФ {mf.name}</h2>}>
-            <MicrofrontendComponent name={mf.name} />
+            <MicrofrontendComponent key={mf.route} name={mf.name} />
           </ErrorBoundary>
         }
         errorElement={<div>Ошибка загрузки МФ {mf.name}</div>}
